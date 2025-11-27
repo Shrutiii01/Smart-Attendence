@@ -12,9 +12,13 @@ export default function Landing() {
             SmartAttend
           </div>
 
-          <button className="hidden sm:inline-flex items-center rounded-full bg-yellow-400 px-5 py-2 text-sm font-semibold text-slate-900 shadow-md shadow-yellow-400/40 hover:bg-yellow-300 transition">
-            Get Started
-          </button>
+          <button
+  onClick={() => (window.location.href = "/signup")}
+  className="hidden sm:inline-flex items-center rounded-full bg-yellow-400 px-5 py-2 text-sm font-semibold text-slate-900 shadow-md shadow-yellow-400/40 hover:bg-yellow-300 transition"
+>
+  Get Started
+</button>
+
         </div>
       </header>
 
