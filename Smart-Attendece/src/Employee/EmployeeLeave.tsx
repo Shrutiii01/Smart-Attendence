@@ -110,10 +110,10 @@ const LeaveManagement: React.FC = () => {
               <TrendingUp className="w-5 h-5" />
               <span>Dashboard</span>
             </Link>
-            <a href="#" className="flex items-center space-x-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-50 font-medium">
+            <Link to="/attendance-history" className="flex items-center space-x-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-50 font-medium">
               <Calendar className="w-5 h-5" />
               <span>Attendance History</span>
-            </a>
+            </Link>
             <Link to="/leave" className="flex items-center space-x-3 px-3 py-2.5 rounded-lg bg-indigo-50 text-indigo-600 font-medium">
               <FileText className="w-5 h-5" />
               <span>Leaves</span>

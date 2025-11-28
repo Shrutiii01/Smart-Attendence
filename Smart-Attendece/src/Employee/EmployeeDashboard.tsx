@@ -121,10 +121,10 @@ const EmployeeDashboard: React.FC = () => {
               <TrendingUp className="w-5 h-5" />
               <span>Dashboard</span>
             </Link>
-            <a href="#" className="flex items-center space-x-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-50 font-medium">
+            <Link to="/attendance-history" className="flex items-center space-x-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-50 font-medium">
               <Calendar className="w-5 h-5" />
               <span>Attendance History</span>
-            </a>
+            </Link>
             <Link
               to="/leave"
               className="flex items-center space-x-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-50 font-medium"
@@ -253,6 +253,43 @@ const EmployeeDashboard: React.FC = () => {
               <button className="w-full mt-4 text-center text-sm text-indigo-600 hover:text-indigo-700 font-medium">
                 View Team Calendar
               </button>
+            </div>
+          </div>
+
+          {/* Recent Attendance (summary) */}
+          <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 mb-6">
+            <div className="flex items-center justify-between mb-4">
+              <div>
+                <h3 className="text-lg font-bold text-gray-900">Recent Attendance</h3>
+                <p className="text-sm text-gray-500">A brief overview of your last few days.</p>
+              </div>
+              <Link to="/attendance-history" className="text-sm text-indigo-600 hover:text-indigo-700 font-medium">View full history</Link>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <div className="p-3 rounded-lg bg-gray-50 border border-gray-100 text-sm">
+                <div className="flex justify-between items-center mb-2">
+                  <div className="text-xs text-gray-500">2023-10-26</div>
+                  <div className="text-xs text-green-600 font-semibold">Present</div>
+                </div>
+                <div className="text-xs text-gray-600">09:02 AM — 06:00 PM (8h 58m)</div>
+              </div>
+
+              <div className="p-3 rounded-lg bg-gray-50 border border-gray-100 text-sm">
+                <div className="flex justify-between items-center mb-2">
+                  <div className="text-xs text-gray-500">2023-10-25</div>
+                  <div className="text-xs text-yellow-600 font-semibold">Late</div>
+                </div>
+                <div className="text-xs text-gray-600">09:15 AM — 06:30 PM (9h 15m)</div>
+              </div>
+
+              <div className="p-3 rounded-lg bg-gray-50 border border-gray-100 text-sm">
+                <div className="flex justify-between items-center mb-2">
+                  <div className="text-xs text-gray-500">2023-10-24</div>
+                  <div className="text-xs text-green-600 font-semibold">Present</div>
+                </div>
+                <div className="text-xs text-gray-600">08:55 AM — 05:55 PM (9h 00m)</div>
+              </div>
             </div>
           </div>
 
