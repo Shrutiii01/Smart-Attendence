@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Calendar, TrendingUp, FileText, FolderOpen, HelpCircle, LogOut, Bell, Moon, Sun } from 'lucide-react';
+import { Link } from "react-router-dom";
 
 const EmployeeDashboard: React.FC = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -11,15 +12,15 @@ const EmployeeDashboard: React.FC = () => {
   }, []);
 
   const formatTime = (date: Date): string => {
-    return date.toLocaleTimeString('en-US', { 
-      hour: '2-digit', 
+    return date.toLocaleTimeString('en-US', {
+      hour: '2-digit',
       minute: '2-digit',
-      hour12: true 
+      hour12: true
     });
   };
 
   const formatDate = (date: Date): string => {
-    return date.toLocaleDateString('en-US', { 
+    return date.toLocaleDateString('en-US', {
       weekday: 'long',
       month: 'long',
       day: 'numeric'
@@ -28,31 +29,31 @@ const EmployeeDashboard: React.FC = () => {
 
   // Mock data
   const stats = [
-    { 
-      title: 'Working Days', 
-      value: '20', 
+    {
+      title: 'Working Days',
+      value: '20',
       subtitle: 'Total 26 days this month',
       icon: '📅',
       color: 'bg-blue-50'
     },
-    { 
-      title: 'Attendance', 
-      value: '95%', 
+    {
+      title: 'Attendance',
+      value: '95%',
       subtitle: '95% over 10 days',
       icon: '✓',
       color: 'bg-green-50',
       iconBg: 'bg-green-100 text-green-600'
     },
-    { 
-      title: 'Leave Balance', 
-      value: '12', 
+    {
+      title: 'Leave Balance',
+      value: '12',
       subtitle: 'Annual leaves remaining',
       icon: '🔑',
       color: 'bg-orange-50'
     },
-    { 
-      title: 'Next Holiday', 
-      value: 'Diwali', 
+    {
+      title: 'Next Holiday',
+      value: 'Diwali',
       subtitle: 'Nov 12 - 5 days to go',
       icon: '🎉',
       color: 'bg-purple-50'
@@ -116,18 +117,22 @@ const EmployeeDashboard: React.FC = () => {
         <nav className="flex-1 p-4">
           <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Main Menu</p>
           <div className="space-y-1">
-            <a href="#" className="flex items-center space-x-3 px-3 py-2.5 rounded-lg bg-indigo-50 text-indigo-600 font-medium">
+            <Link to="/employee-dashboard" className="flex items-center space-x-3 px-3 py-2.5 rounded-lg bg-indigo-50 text-indigo-600 font-medium">
               <TrendingUp className="w-5 h-5" />
               <span>Dashboard</span>
-            </a>
+            </Link>
             <a href="#" className="flex items-center space-x-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-50 font-medium">
               <Calendar className="w-5 h-5" />
               <span>Attendance History</span>
             </a>
-            <a href="#" className="flex items-center space-x-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-50 font-medium">
+            <Link
+              to="/leave"
+              className="flex items-center space-x-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-50 font-medium"
+            >
               <FileText className="w-5 h-5" />
               <span>Leaves</span>
-            </a>
+            </Link>
+
             <a href="#" className="flex items-center space-x-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-50 font-medium">
               <FolderOpen className="w-5 h-5" />
               <span>Documents</span>
@@ -169,7 +174,7 @@ const EmployeeDashboard: React.FC = () => {
               <p className="text-gray-600 mt-1">Here's what's happening with your work today.</p>
             </div>
             <div className="flex items-center space-x-3">
-              <button 
+              <button
                 onClick={() => setDarkMode(!darkMode)}
                 className="p-2 hover:bg-gray-100 rounded-lg"
               >
