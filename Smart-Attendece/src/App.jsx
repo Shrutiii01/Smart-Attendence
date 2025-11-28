@@ -4,6 +4,8 @@ import EmployeeDashboard from "./Employee/EmployeeDashboard";
 import AttendanceHistory from "./Employee/AttendanceHistory";
 import Signup from "./Authentication/Signup.jsx";
 import EmployeeLeave from "./Employee/EmployeeLeave";
+import ProfilePage from "./profile/profile";
+
 
 const App = () => {
   return (
@@ -13,6 +15,7 @@ const App = () => {
       <Route path="employee-dashboard" element={<EmployeeDashboard />} />
       <Route path="attendance-history" element={<AttendanceHistory />} />
       <Route path="leave" element={<EmployeeLeave />} />
+      <Route path="profile" element={<ProfilePage />} />
     </Routes>
   );
 };

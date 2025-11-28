@@ -132,7 +132,7 @@ const AttendanceHistory: React.FC = () => {
 
         {/* User Profile */}
         <div className="p-4 border-t border-gray-200">
-          <div className="flex items-center space-x-3 mb-3">
+          <Link to="/profile" className="flex items-center space-x-3 mb-3 ">
             <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white font-semibold">
               SJ
             </div>
@@ -140,13 +140,16 @@ const AttendanceHistory: React.FC = () => {
               <p className="text-sm font-semibold text-gray-900">Sarah Johnson</p>
               <p className="text-xs text-gray-500">Senior Engineer</p>
             </div>
-          </div>
+          </Link>
           {loading && <div className="text-xs text-gray-500 mb-2">Loading...</div>}
           {error && <div className="text-xs text-red-600 mb-2">Error: {error}</div>}
-          <button className="flex items-center space-x-2 text-gray-600 hover:text-gray-900 text-sm font-medium">
-            <LogOut className="w-4 h-4" />
-            <span>Sign Out</span>
-          </button>
+          <div className="flex items-center justify-between">
+            <Link to="/profile" className="text-xs text-indigo-600 ">View profile</Link>
+            <button className="flex items-center space-x-2 text-gray-600 hover:text-gray-900 text-sm font-medium">
+              <LogOut className="w-4 h-4" />
+              <span>Sign Out</span>
+            </button>
+          </div>
         </div>
       </aside>
 
