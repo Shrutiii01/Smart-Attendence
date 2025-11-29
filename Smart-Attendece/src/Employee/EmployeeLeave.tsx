@@ -111,17 +111,20 @@ const LeaveManagement: React.FC = () => {
               <span>Dashboard</span>
             </Link>
             <Link to="/attendance-history" className="flex items-center space-x-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-50 font-medium">
-              <Calendar className="w-5 h-5" />
+              <FolderOpen className="w-5 h-5" />
               <span>Attendance History</span>
             </Link>
             <Link to="/leave" className="flex items-center space-x-3 px-3 py-2.5 rounded-lg bg-indigo-50 text-indigo-600 font-medium">
               <FileText className="w-5 h-5" />
               <span>Leaves</span>
             </Link>
-            <a href="#" className="flex items-center space-x-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-50 font-medium">
-              <FolderOpen className="w-5 h-5" />
-              <span>Documents</span>
-            </a>
+            <Link
+              to="/calendar"
+              className="flex items-center space-x-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-50 font-medium"
+            >
+              <Calendar className="w-5 h-5" />
+              <span>Calendar</span>
+            </Link>
           </div>
 
           <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mt-6 mb-3">Support</p>
@@ -143,8 +146,7 @@ const LeaveManagement: React.FC = () => {
             </div>
           </Link>
           <div className="flex items-center justify-between">
-            <Link to="/profile" className="text-xs text-indigo-600 ">View profile</Link>
-            <button className="flex items-center space-x-2 text-gray-600 hover:text-gray-900 text-sm font-medium">
+           <button className="flex items-center space-x-2 text-gray-600 hover:text-gray-900 text-sm font-medium">
               <LogOut className="w-4 h-4" />
               <span>Sign Out</span>
             </button>
@@ -162,7 +164,7 @@ const LeaveManagement: React.FC = () => {
               <p className="text-gray-600 mt-1">Manage your leaves and records.</p>
             </div>
             <div className="flex items-center space-x-3">
-              <button 
+              <button
                 onClick={() => setDarkMode(!darkMode)}
                 className="p-2 hover:bg-gray-100 rounded-lg"
               >
@@ -227,21 +229,19 @@ const LeaveManagement: React.FC = () => {
                     <div className="flex space-x-2">
                       <button
                         onClick={() => setDurationType('Full Day')}
-                        className={`flex-1 px-4 py-2.5 rounded-lg font-medium text-sm transition-all ${
-                          durationType === 'Full Day'
+                        className={`flex-1 px-4 py-2.5 rounded-lg font-medium text-sm transition-all ${durationType === 'Full Day'
                             ? 'bg-indigo-600 text-white'
                             : 'bg-gray-50 text-gray-700 border border-gray-300 hover:bg-gray-100'
-                        }`}
+                          }`}
                       >
                         Full Day
                       </button>
                       <button
                         onClick={() => setDurationType('Half Day')}
-                        className={`flex-1 px-4 py-2.5 rounded-lg font-medium text-sm transition-all ${
-                          durationType === 'Half Day'
+                        className={`flex-1 px-4 py-2.5 rounded-lg font-medium text-sm transition-all ${durationType === 'Half Day'
                             ? 'bg-indigo-600 text-white'
                             : 'bg-gray-50 text-gray-700 border border-gray-300 hover:bg-gray-100'
-                        }`}
+                          }`}
                       >
                         Half Day
                       </button>

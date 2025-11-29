@@ -110,17 +110,20 @@ const AttendanceHistory: React.FC = () => {
               <span>Dashboard</span>
             </Link>
             <button className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg bg-indigo-50 text-indigo-600 font-medium text-left">
-              <Calendar className="w-5 h-5" />
+              <FolderOpen className="w-5 h-5" />
               <span>Attendance History</span>
             </button>
             <Link to="/leave" className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-50 font-medium text-left">
               <FileText className="w-5 h-5" />
               <span>Leaves</span>
             </Link>
-            <button className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-50 font-medium text-left">
-              <FolderOpen className="w-5 h-5" />
-              <span>Documents</span>
-            </button>
+            <Link
+              to="/calendar"
+              className="flex items-center space-x-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-50 font-medium"
+            >
+              <Calendar className="w-5 h-5" />
+              <span>Calendar</span>
+            </Link>
           </div>
 
           <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mt-6 mb-3">Support</p>
@@ -144,7 +147,6 @@ const AttendanceHistory: React.FC = () => {
           {loading && <div className="text-xs text-gray-500 mb-2">Loading...</div>}
           {error && <div className="text-xs text-red-600 mb-2">Error: {error}</div>}
           <div className="flex items-center justify-between">
-            <Link to="/profile" className="text-xs text-indigo-600 ">View profile</Link>
             <button className="flex items-center space-x-2 text-gray-600 hover:text-gray-900 text-sm font-medium">
               <LogOut className="w-4 h-4" />
               <span>Sign Out</span>
@@ -160,11 +162,11 @@ const AttendanceHistory: React.FC = () => {
           <div className="flex items-center justify-between">
             <div>
               <h2 className="text-2xl font-bold text-gray-900">Attendance History</h2>
-                <p className="text-gray-600 mt-1">Manage your attendance history and records.</p>
-                
+              <p className="text-gray-600 mt-1">Manage your attendance history and records.</p>
+
             </div>
             <div className="flex items-center space-x-3">
-              <button 
+              <button
                 onClick={() => setDarkMode(!darkMode)}
                 className="p-2 hover:bg-gray-100 rounded-lg"
               >
@@ -204,25 +206,23 @@ const AttendanceHistory: React.FC = () => {
           <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-lg font-bold text-gray-900">Attendance Records</h3>
-              
+
               <div className="flex space-x-2">
-                <button 
+                <button
                   onClick={() => setView("list")}
-                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                    view === "list" 
-                      ? "bg-indigo-600 text-white" 
+                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${view === "list"
+                      ? "bg-indigo-600 text-white"
                       : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                  }`}
+                    }`}
                 >
                   List
                 </button>
-                <button 
+                <button
                   onClick={() => setView("calendar")}
-                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                    view === "calendar" 
-                      ? "bg-indigo-600 text-white" 
+                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${view === "calendar"
+                      ? "bg-indigo-600 text-white"
                       : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                  }`}
+                    }`}
                 >
                   Calendar
                 </button>

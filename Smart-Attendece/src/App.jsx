@@ -5,6 +5,7 @@ import AttendanceHistory from "./Employee/AttendanceHistory";
 import Signup from "./Authentication/Signup.jsx";
 import EmployeeLeave from "./Employee/EmployeeLeave";
 import ProfilePage from "./profile/profile";
+import CompanyCalendar from "./Calendar/CompanyCalendar.js";
 
 
 const App = () => {
@@ -16,6 +17,7 @@ const App = () => {
       <Route path="attendance-history" element={<AttendanceHistory />} />
       <Route path="leave" element={<EmployeeLeave />} />
       <Route path="profile" element={<ProfilePage />} />
+       <Route path="calendar" element={<CompanyCalendar />} />
     </Routes>
   );
 };
