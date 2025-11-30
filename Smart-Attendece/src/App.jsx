@@ -11,6 +11,7 @@ import ManagerCalendar from "./Manager/ManagerCalendar";
 import ManagerProfile from "./Manager/ManagerProfile.jsx";
 import IdCreation from "./Manager/IdCreation.jsx";
 import ViewEmployee from "./Manager/ViewEmployee.jsx";
+import ResetPassword from "./Authentication/ResetPassword.jsx";
 
 const App = () => {
   return (
@@ -21,12 +22,13 @@ const App = () => {
       <Route path="attendance-history" element={<AttendanceHistory />} />
       <Route path="leave" element={<EmployeeLeave />} />
       <Route path="profile" element={<ProfilePage />} />
-       <Route path="calendar" element={<CompanyCalendar />} />
+      <Route path="calendar" element={<CompanyCalendar />} />
       <Route path="manager-dashboard" element={<ManagerDashboard />} />
       <Route path="manager-calendar" element={<ManagerCalendar />} />
       <Route path="manager-profile" element={<ManagerProfile />} />
       <Route path="id-creation" element={<IdCreation />} />
       <Route path="view-employee" element={<ViewEmployee />} />
+      <Route path="reset-password" element={<ResetPassword />} />
     </Routes>
   );
 };

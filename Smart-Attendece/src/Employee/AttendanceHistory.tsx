@@ -1,6 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { Calendar, Clock, TrendingUp, FileText, FolderOpen, HelpCircle, LogOut, MapPin, ShieldCheck, Bell, Moon, Sun } from "lucide-react";
+import {
+  Calendar,
+  Clock,
+  TrendingUp,
+  FileText,
+  FolderOpen,
+  HelpCircle,
+  LogOut,
+  MapPin,
+  ShieldCheck,
+  Bell,
+  Moon,
+  Sun,
+} from "lucide-react";
 import { Link } from "react-router-dom";
+import { UseAuthGuard } from "../AuthGuard/UseAuthGuard";
 
 interface AttendanceRecord {
   date: string;
@@ -17,8 +31,12 @@ const AttendanceHistory: React.FC = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [view, setView] = useState("list");
   const [records, setRecords] = useState<AttendanceRecord[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false); // for data loading if needed
   const [error, setError] = useState<string | null>(null);
+
+  // 🔐 Auth guard (redirects if no session)
+  // You can change "/" to "/signup" or "/login" if you want.
+  const { isLoading: authLoading } = UseAuthGuard("/");
 
   // Mock records
   const initialRecords: AttendanceRecord[] = [
@@ -84,6 +102,15 @@ const AttendanceHistory: React.FC = () => {
     return "bg-red-100 text-red-700";
   };
 
+  // ⏳ Show loader while auth is being checked
+  if (authLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="text-sm text-gray-600">Checking authentication...</div>
+      </div>
+    );
+  }
+
   return (
     <div className="flex min-h-screen bg-gray-50">
       {/* Sidebar */}
@@ -103,9 +130,14 @@ const AttendanceHistory: React.FC = () => {
 
         {/* Main Menu */}
         <nav className="flex-1 p-4">
-          <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Main Menu</p>
+          <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">
+            Main Menu
+          </p>
           <div className="space-y-1">
-            <Link to="/employee-dashboard" className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-50 font-medium text-left">
+            <Link
+              to="/employee-dashboard"
+              className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-50 font-medium text-left"
+            >
               <TrendingUp className="w-5 h-5" />
               <span>Dashboard</span>
             </Link>
@@ -113,7 +145,10 @@ const AttendanceHistory: React.FC = () => {
               <FolderOpen className="w-5 h-5" />
               <span>Attendance History</span>
             </button>
-            <Link to="/leave" className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-50 font-medium text-left">
+            <Link
+              to="/leave"
+              className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-50 font-medium text-left"
+            >
               <FileText className="w-5 h-5" />
               <span>Leaves</span>
             </Link>
@@ -126,7 +161,9 @@ const AttendanceHistory: React.FC = () => {
             </Link>
           </div>
 
-          <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mt-6 mb-3">Support</p>
+          <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mt-6 mb-3">
+            Support
+          </p>
           <button className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-50 font-medium text-left">
             <HelpCircle className="w-5 h-5" />
             <span>Helpdesk</span>
@@ -140,12 +177,18 @@ const AttendanceHistory: React.FC = () => {
               SJ
             </div>
             <div className="flex-1">
-              <p className="text-sm font-semibold text-gray-900">Sarah Johnson</p>
+              <p className="text-sm font-semibold text-gray-900">
+                Sarah Johnson
+              </p>
               <p className="text-xs text-gray-500">Senior Engineer</p>
             </div>
           </Link>
-          {loading && <div className="text-xs text-gray-500 mb-2">Loading...</div>}
-          {error && <div className="text-xs text-red-600 mb-2">Error: {error}</div>}
+          {loading && (
+            <div className="text-xs text-gray-500 mb-2">Loading...</div>
+          )}
+          {error && (
+            <div className="text-xs text-red-600 mb-2">Error: {error}</div>
+          )}
           <div className="flex items-center justify-between">
             <button className="flex items-center space-x-2 text-gray-600 hover:text-gray-900 text-sm font-medium">
               <LogOut className="w-4 h-4" />
@@ -161,9 +204,12 @@ const AttendanceHistory: React.FC = () => {
         <header className="bg-white border-b border-gray-200 px-8 py-6">
           <div className="flex items-center justify-between">
             <div>
-              <h2 className="text-2xl font-bold text-gray-900">Attendance History</h2>
-              <p className="text-gray-600 mt-1">Manage your attendance history and records.</p>
-
+              <h2 className="text-2xl font-bold text-gray-900">
+                Attendance History
+              </h2>
+              <p className="text-gray-600 mt-1">
+                Manage your attendance history and records.
+              </p>
             </div>
             <div className="flex items-center space-x-3">
               <button
@@ -197,7 +243,9 @@ const AttendanceHistory: React.FC = () => {
               <h3 className="text-3xl font-bold text-yellow-600">1</h3>
             </div>
             <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 border-l-4 border-l-blue-500 flex-1">
-              <p className="text-sm text-gray-600 font-medium mb-2">Avg Hours</p>
+              <p className="text-sm text-gray-600 font-medium mb-2">
+                Avg Hours
+              </p>
               <h3 className="text-3xl font-bold text-blue-600">8.5</h3>
             </div>
           </div>
@@ -205,24 +253,28 @@ const AttendanceHistory: React.FC = () => {
           {/* Table */}
           <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
             <div className="flex items-center justify-between mb-6">
-              <h3 className="text-lg font-bold text-gray-900">Attendance Records</h3>
+              <h3 className="text-lg font-bold text-gray-900">
+                Attendance Records
+              </h3>
 
               <div className="flex space-x-2">
                 <button
                   onClick={() => setView("list")}
-                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${view === "list"
+                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                    view === "list"
                       ? "bg-indigo-600 text-white"
                       : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                    }`}
+                  }`}
                 >
                   List
                 </button>
                 <button
                   onClick={() => setView("calendar")}
-                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${view === "calendar"
+                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                    view === "calendar"
                       ? "bg-indigo-600 text-white"
                       : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                    }`}
+                  }`}
                 >
                   Calendar
                 </button>
@@ -233,20 +285,41 @@ const AttendanceHistory: React.FC = () => {
               <table className="w-full">
                 <thead>
                   <tr className="border-b border-gray-200">
-                    <th className="text-left py-3 px-4 text-sm font-semibold text-gray-600">Date</th>
-                    <th className="text-left py-3 px-4 text-sm font-semibold text-gray-600">Status</th>
-                    <th className="text-left py-3 px-4 text-sm font-semibold text-gray-600">Check In / Out</th>
-                    <th className="text-left py-3 px-4 text-sm font-semibold text-gray-600">Work Hours</th>
-                    <th className="text-left py-3 px-4 text-sm font-semibold text-gray-600">Location</th>
-                    <th className="text-left py-3 px-4 text-sm font-semibold text-gray-600">Verification</th>
+                    <th className="text-left py-3 px-4 text-sm font-semibold text-gray-600">
+                      Date
+                    </th>
+                    <th className="text-left py-3 px-4 text-sm font-semibold text-gray-600">
+                      Status
+                    </th>
+                    <th className="text-left py-3 px-4 text-sm font-semibold text-gray-600">
+                      Check In / Out
+                    </th>
+                    <th className="text-left py-3 px-4 text-sm font-semibold text-gray-600">
+                      Work Hours
+                    </th>
+                    <th className="text-left py-3 px-4 text-sm font-semibold text-gray-600">
+                      Location
+                    </th>
+                    <th className="text-left py-3 px-4 text-sm font-semibold text-gray-600">
+                      Verification
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
                   {records.map((record, index) => (
-                    <tr key={index} className="border-b border-gray-100 hover:bg-gray-50">
-                      <td className="py-3 px-4 text-sm text-gray-900">{record.date}</td>
+                    <tr
+                      key={index}
+                      className="border-b border-gray-100 hover:bg-gray-50"
+                    >
+                      <td className="py-3 px-4 text-sm text-gray-900">
+                        {record.date}
+                      </td>
                       <td className="py-3 px-4">
-                        <span className={`px-3 py-1 text-xs font-semibold rounded-full ${getStatusColor(record.type)}`}>
+                        <span
+                          className={`px-3 py-1 text-xs font-semibold rounded-full ${getStatusColor(
+                            record.type
+                          )}`}
+                        >
                           {record.status}
                         </span>
                       </td>
@@ -254,7 +327,9 @@ const AttendanceHistory: React.FC = () => {
                         <div>{record.checkIn}</div>
                         <div className="text-gray-500">{record.checkOut}</div>
                       </td>
-                      <td className="py-3 px-4 text-sm font-semibold text-gray-900">{record.hours}</td>
+                      <td className="py-3 px-4 text-sm font-semibold text-gray-900">
+                        {record.hours}
+                      </td>
                       <td className="py-3 px-4 text-sm text-gray-600">
                         <div className="flex items-center space-x-1">
                           <MapPin className="w-4 h-4 text-gray-400" />
@@ -263,7 +338,8 @@ const AttendanceHistory: React.FC = () => {
                       </td>
                       <td className="py-3 px-4 text-sm text-gray-600">
                         <div className="flex items-center space-x-1">
-                          {record.verification === "Face Scan" || record.verification === "Geofence" ? (
+                          {record.verification === "Face Scan" ||
+                          record.verification === "Geofence" ? (
                             <ShieldCheck className="w-4 h-4 text-green-600" />
                           ) : (
                             <span className="w-4 h-4"></span>

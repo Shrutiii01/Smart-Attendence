@@ -1,75 +1,89 @@
-import React, { useState } from 'react';
-import { Calendar, TrendingUp, FileText, FolderOpen, HelpCircle, LogOut, Bell, Moon, Send } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import {
+  Calendar,
+  TrendingUp,
+  FileText,
+  FolderOpen,
+  HelpCircle,
+  LogOut,
+  Bell,
+  Moon,
+  Send,
+} from "lucide-react";
+import { Link } from "react-router-dom";
+import { UseAuthGuard } from "../AuthGuard/UseAuthGuard";
 
 interface LeaveRequest {
   id: number;
   type: string;
   dateRange: string;
-  status: 'PENDING' | 'APPROVED' | 'REJECTED';
+  status: "PENDING" | "APPROVED" | "REJECTED";
   statusColor: string;
   dotColor: string;
 }
 
 const LeaveManagement: React.FC = () => {
   const [darkMode, setDarkMode] = useState(false);
-  const [leaveType, setLeaveType] = useState('Annual Leave');
-  const [durationType, setDurationType] = useState('Full Day');
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
-  const [reason, setReason] = useState('');
+  const [leaveType, setLeaveType] = useState("Annual Leave");
+  const [durationType, setDurationType] = useState("Full Day");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [reason, setReason] = useState("");
+
+  // 🔐 Auth guard – change redirect path if you want (e.g. "/login")
+  const { isLoading: authLoading } = UseAuthGuard("/");
 
   // Leave balance data
   const leaveBalance = [
     {
-      type: 'Annual Leave',
+      type: "Annual Leave",
       used: 12,
       total: 15,
-      bgColor: 'bg-blue-500',
-      textColor: 'text-white'
+      bgColor: "bg-blue-500",
+      textColor: "text-white",
     },
     {
-      type: 'Sick Leave',
+      type: "Sick Leave",
       used: 5,
       total: 10,
-      bgColor: 'bg-white',
-      textColor: 'text-gray-900'
+      bgColor: "bg-white",
+      textColor: "text-gray-900",
     },
     {
-      type: 'Casual Leave',
+      type: "Casual Leave",
       used: 3,
       total: 5,
-      bgColor: 'bg-white',
-      textColor: 'text-gray-900'
-    }
+      bgColor: "bg-white",
+      textColor: "text-gray-900",
+    },
   ];
 
   // Recent leave requests
   const recentRequests: LeaveRequest[] = [
     {
       id: 1,
-      type: 'Sick Leave',
-      dateRange: 'Oct 12 - Oct 15 (2 Days)',
-      status: 'PENDING',
-      statusColor: 'bg-yellow-100 text-yellow-700',
-      dotColor: 'bg-yellow-400'
+      type: "Sick Leave",
+      dateRange: "Oct 12 - Oct 15 (2 Days)",
+      status: "PENDING",
+      statusColor: "bg-yellow-100 text-yellow-700",
+      dotColor: "bg-yellow-400",
     },
     {
       id: 2,
-      type: 'Casual Leave',
-      dateRange: 'Sep 05 (1 Day)',
-      status: 'APPROVED',
-      statusColor: 'bg-green-100 text-green-700',
-      dotColor: 'bg-green-400'
+      type: "Casual Leave",
+      dateRange: "Sep 05 (1 Day)",
+      status: "APPROVED",
+      statusColor: "bg-green-100 text-green-700",
+      dotColor: "bg-green-400",
     },
     {
       id: 3,
-      type: 'Unpaid Leave',
-      dateRange: 'Aug 12 (1 Day)',
-      status: 'REJECTED',
-      statusColor: 'bg-red-100 text-red-700',
-      dotColor: 'bg-red-400'
-    }
+      type: "Unpaid Leave",
+      dateRange: "Aug 12 (1 Day)",
+      status: "REJECTED",
+      statusColor: "bg-red-100 text-red-700",
+      dotColor: "bg-red-400",
+    },
   ];
 
   const handleSubmit = () => {
@@ -78,12 +92,21 @@ const LeaveManagement: React.FC = () => {
   };
 
   const handleCancel = () => {
-    setLeaveType('Annual Leave');
-    setDurationType('Full Day');
-    setStartDate('');
-    setEndDate('');
-    setReason('');
+    setLeaveType("Annual Leave");
+    setDurationType("Full Day");
+    setStartDate("");
+    setEndDate("");
+    setReason("");
   };
+
+  // ⏳ Show loader while auth is being checked
+  if (authLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="text-sm text-gray-600">Checking authentication...</div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex min-h-screen bg-gray-50">
@@ -104,17 +127,28 @@ const LeaveManagement: React.FC = () => {
 
         {/* Main Menu */}
         <nav className="flex-1 p-4">
-          <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Main Menu</p>
+          <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">
+            Main Menu
+          </p>
           <div className="space-y-1">
-            <Link to="/employee-dashboard" className="flex items-center space-x-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-50 font-medium">
+            <Link
+              to="/employee-dashboard"
+              className="flex items-center space-x-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-50 font-medium"
+            >
               <TrendingUp className="w-5 h-5" />
               <span>Dashboard</span>
             </Link>
-            <Link to="/attendance-history" className="flex items-center space-x-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-50 font-medium">
+            <Link
+              to="/attendance-history"
+              className="flex items-center space-x-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-50 font-medium"
+            >
               <FolderOpen className="w-5 h-5" />
               <span>Attendance History</span>
             </Link>
-            <Link to="/leave" className="flex items-center space-x-3 px-3 py-2.5 rounded-lg bg-indigo-50 text-indigo-600 font-medium">
+            <Link
+              to="/leave"
+              className="flex items-center space-x-3 px-3 py-2.5 rounded-lg bg-indigo-50 text-indigo-600 font-medium"
+            >
               <FileText className="w-5 h-5" />
               <span>Leaves</span>
             </Link>
@@ -127,8 +161,13 @@ const LeaveManagement: React.FC = () => {
             </Link>
           </div>
 
-          <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mt-6 mb-3">Support</p>
-          <a href="#" className="flex items-center space-x-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-50 font-medium">
+          <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mt-6 mb-3">
+            Support
+          </p>
+          <a
+            href="#"
+            className="flex items-center space-x-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-50 font-medium"
+          >
             <HelpCircle className="w-5 h-5" />
             <span>Helpdesk</span>
           </a>
@@ -141,12 +180,14 @@ const LeaveManagement: React.FC = () => {
               SJ
             </div>
             <div className="flex-1">
-              <p className="text-sm font-semibold text-gray-900">Sarah Johnson</p>
+              <p className="text-sm font-semibold text-gray-900">
+                Sarah Johnson
+              </p>
               <p className="text-xs text-gray-500">Senior Engineer</p>
             </div>
           </Link>
           <div className="flex items-center justify-between">
-           <button className="flex items-center space-x-2 text-gray-600 hover:text-gray-900 text-sm font-medium">
+            <button className="flex items-center space-x-2 text-gray-600 hover:text-gray-900 text-sm font-medium">
               <LogOut className="w-4 h-4" />
               <span>Sign Out</span>
             </button>
@@ -160,8 +201,12 @@ const LeaveManagement: React.FC = () => {
         <header className="bg-white border-b border-gray-200 px-8 py-6">
           <div className="flex items-center justify-between">
             <div>
-              <h2 className="text-2xl font-bold text-gray-900">Leave Management</h2>
-              <p className="text-gray-600 mt-1">Manage your leaves and records.</p>
+              <h2 className="text-2xl font-bold text-gray-900">
+                Leave Management
+              </h2>
+              <p className="text-gray-600 mt-1">
+                Manage your leaves and records.
+              </p>
             </div>
             <div className="flex items-center space-x-3">
               <button
@@ -183,11 +228,24 @@ const LeaveManagement: React.FC = () => {
           {/* Leave Balance Cards */}
           <div className="flex gap-4 mb-6">
             {leaveBalance.map((leave, index) => (
-              <div key={index} className={`${leave.bgColor} rounded-xl p-6 shadow-sm ${index > 0 ? 'border border-gray-200' : ''} flex-1`}>
-                <p className={`text-sm font-medium mb-3 ${leave.textColor} opacity-90`}>{leave.type}</p>
+              <div
+                key={index}
+                className={`${leave.bgColor} rounded-xl p-6 shadow-sm ${
+                  index > 0 ? "border border-gray-200" : ""
+                } flex-1`}
+              >
+                <p
+                  className={`text-sm font-medium mb-3 ${leave.textColor} opacity-90`}
+                >
+                  {leave.type}
+                </p>
                 <div className="flex items-baseline space-x-1">
-                  <h3 className={`text-4xl font-bold ${leave.textColor}`}>{leave.used}</h3>
-                  <span className={`text-xl ${leave.textColor} opacity-60`}>/ {leave.total}</span>
+                  <h3 className={`text-4xl font-bold ${leave.textColor}`}>
+                    {leave.used}
+                  </h3>
+                  <span
+                    className={`text-xl ${leave.textColor} opacity-60`}
+                  >{`/ ${leave.total}`}</span>
                 </div>
               </div>
             ))}
@@ -200,7 +258,9 @@ const LeaveManagement: React.FC = () => {
                 <div className="w-10 h-10 bg-indigo-50 rounded-lg flex items-center justify-center mr-3">
                   <FileText className="w-5 h-5 text-indigo-600" />
                 </div>
-                <h3 className="text-xl font-bold text-gray-900">Apply for Leave</h3>
+                <h3 className="text-xl font-bold text-gray-900">
+                  Apply for Leave
+                </h3>
               </div>
 
               <div className="space-y-5">
@@ -228,20 +288,22 @@ const LeaveManagement: React.FC = () => {
                     </label>
                     <div className="flex space-x-2">
                       <button
-                        onClick={() => setDurationType('Full Day')}
-                        className={`flex-1 px-4 py-2.5 rounded-lg font-medium text-sm transition-all ${durationType === 'Full Day'
-                            ? 'bg-indigo-600 text-white'
-                            : 'bg-gray-50 text-gray-700 border border-gray-300 hover:bg-gray-100'
-                          }`}
+                        onClick={() => setDurationType("Full Day")}
+                        className={`flex-1 px-4 py-2.5 rounded-lg font-medium text-sm transition-all ${
+                          durationType === "Full Day"
+                            ? "bg-indigo-600 text-white"
+                            : "bg-gray-50 text-gray-700 border border-gray-300 hover:bg-gray-100"
+                        }`}
                       >
                         Full Day
                       </button>
                       <button
-                        onClick={() => setDurationType('Half Day')}
-                        className={`flex-1 px-4 py-2.5 rounded-lg font-medium text-sm transition-all ${durationType === 'Half Day'
-                            ? 'bg-indigo-600 text-white'
-                            : 'bg-gray-50 text-gray-700 border border-gray-300 hover:bg-gray-100'
-                          }`}
+                        onClick={() => setDurationType("Half Day")}
+                        className={`flex-1 px-4 py-2.5 rounded-lg font-medium text-sm transition-all ${
+                          durationType === "Half Day"
+                            ? "bg-indigo-600 text-white"
+                            : "bg-gray-50 text-gray-700 border border-gray-300 hover:bg-gray-100"
+                        }`}
                       >
                         Half Day
                       </button>
@@ -314,7 +376,9 @@ const LeaveManagement: React.FC = () => {
             {/* Recent Requests */}
             <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
               <div className="flex items-center justify-between mb-6">
-                <h3 className="text-lg font-bold text-gray-900">Recent Requests</h3>
+                <h3 className="text-lg font-bold text-gray-900">
+                  Recent Requests
+                </h3>
                 <button className="text-sm text-indigo-600 hover:text-indigo-700 font-medium">
                   View All
                 </button>
@@ -323,15 +387,23 @@ const LeaveManagement: React.FC = () => {
               <div className="space-y-5">
                 {recentRequests.map((request) => (
                   <div key={request.id} className="flex items-start space-x-3">
-                    <div className={`w-2.5 h-2.5 ${request.dotColor} rounded-full mt-1.5 flex-shrink-0`}></div>
+                    <div
+                      className={`w-2.5 h-2.5 ${request.dotColor} rounded-full mt-1.5 flex-shrink-0`}
+                    ></div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-start justify-between gap-2 mb-1">
-                        <h4 className="font-semibold text-gray-900 text-sm">{request.type}</h4>
-                        <span className={`px-2.5 py-1 text-xs font-bold rounded whitespace-nowrap ${request.statusColor}`}>
+                        <h4 className="font-semibold text-gray-900 text-sm">
+                          {request.type}
+                        </h4>
+                        <span
+                          className={`px-2.5 py-1 text-xs font-bold rounded whitespace-nowrap ${request.statusColor}`}
+                        >
                           {request.status}
                         </span>
                       </div>
-                      <p className="text-xs text-gray-500">{request.dateRange}</p>
+                      <p className="text-xs text-gray-500">
+                        {request.dateRange}
+                      </p>
                     </div>
                   </div>
                 ))}
