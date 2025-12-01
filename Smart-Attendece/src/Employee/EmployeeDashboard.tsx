@@ -267,6 +267,32 @@ const EmployeeDashboard: React.FC = () => {
             ))}
           </div>
 
+          {/* Mark Attendance */}
+          <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-8">
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">Mark Attendance</h3>
+                <p className="text-sm text-gray-600">Don't forget to clock in before 9:30 AM to avoid late marking.</p>
+              </div>
+              <div className="text-center mr-8">
+                <div className="text-4xl font-bold text-gray-900">{formatTime(currentTime)}</div>
+                <div className="text-sm text-gray-500 mt-1">{formatDate(currentTime)}</div>
+              </div>
+              <div className="flex space-x-4">
+                <button className="px-8 py-4 bg-green-500 hover:bg-green-600 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all flex flex-col items-center">
+                  <span className="text-2xl mb-1">→</span>
+                  <span>Clock In</span>
+                  <span className="text-xs opacity-90 mt-1">Face Scan</span>
+                </button>
+                <button className="px-8 py-4 bg-gray-100 text-gray-400 rounded-xl font-semibold flex flex-col items-center cursor-not-allowed">
+                  <span className="text-2xl mb-1">←</span>
+                  <span>Clock Out</span>
+                  <span className="text-xs mt-1">Face Scan</span>
+                </button>
+              </div>
+            </div>
+          </div>
+          
           {/* Announcements and Who's Away */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
             {/* Announcements */}
@@ -394,20 +420,12 @@ const EmployeeDashboard: React.FC = () => {
           <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-8">
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">
-                  Mark Attendance
-                </h3>
-                <p className="text-sm text-gray-600">
-                  Don't forget to clock in before 9:30 AM to avoid late marking.
-                </p>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">Mark Attendance</h3>
+                <p className="text-sm text-gray-600">Don't forget to clock in before 9:30 AM to avoid late marking.</p>
               </div>
               <div className="text-center mr-8">
-                <div className="text-4xl font-bold text-gray-900">
-                  {formatTime(currentTime)}
-                </div>
-                <div className="text-sm text-gray-500 mt-1">
-                  {formatDate(currentTime)}
-                </div>
+                <div className="text-4xl font-bold text-gray-900">{formatTime(currentTime)}</div>
+                <div className="text-sm text-gray-500 mt-1">{formatDate(currentTime)}</div>
               </div>
               <div className="flex space-x-4">
                 <button className="px-8 py-4 bg-green-500 hover:bg-green-600 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all flex flex-col items-center">
